@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@sophxflow — Creator Partnerships</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@700;900&family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060408;
+  --card: #0C0A12;
+  --card2: #100E18;
+  --border: #1C1828;
+  --text: #EDE8FF;
+  --sub: #5A5070;
+  --dim: #080610;
+  --white: #F8F4FF;
+  --accent: #FF4060;
+  --accent2: #FF8040;
+  --gold: #F0C840;
+  --cyan: #40E0FF;
+  --green: #40FF80;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* NOISE OVERLAY */
+.noise {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* SPEED LINES */
+.speed-lines {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 200vw; height: 200vh; pointer-events: none; z-index: 0; opacity: 0.025;
+  background: repeating-conic-gradient(rgba(255,64,96,0.5) 0deg 0.2deg, transparent 0.2deg 4deg);
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(6,4,8,0.92); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; height: 58px;
+}
+.nav-logo {
+  font-family: 'Share Tech Mono', monospace; font-size: 13px; letter-spacing: 4px;
+  color: var(--accent); text-decoration: none;
+}
+.nav-cta {
+  font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px;
+  background: var(--accent); color: var(--bg); padding: 9px 22px;
+  text-decoration: none; transition: all .2s;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%);
+}
+.nav-cta:hover { background: var(--accent2); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 120px 0 80px; position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 75% 40%, rgba(255,64,96,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 70%, rgba(64,224,255,0.06) 0%, transparent 45%);
+}
+.hero-line {
+  position: absolute; top: 58px; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+}
+.hero-jp {
+  position: absolute; right: -10px; top: 50%; transform: translateY(-50%) rotate(90deg);
+  font-family: 'Noto Sans JP', sans-serif; font-size: 10px; letter-spacing: 10px;
+  color: rgba(255,64,96,0.08); white-space: nowrap; font-weight: 900; user-select: none;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 5; }
+
+.hero-eyebrow {
+  font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 5px;
+  color: var(--accent); margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+
+.hero-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 11vw, 108px);
+  letter-spacing: 2px; line-height: .88; text-transform: uppercase; margin-bottom: 24px;
+}
+.hero-heading .grad {
+  background: linear-gradient(135deg, var(--accent), var(--accent2), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-heading .jp-small {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(18px, 4vw, 36px);
+  display: block; margin-top: 4px; letter-spacing: 8px;
+  color: rgba(255,64,96,0.25); -webkit-text-fill-color: rgba(255,64,96,0.25);
+}
+
+.hero-sub {
+  font-size: 17px; color: var(--sub); line-height: 1.8;
+  max-width: 540px; margin-bottom: 36px;
+}
+.hero-sub strong { color: var(--text); font-weight: 500; }
+
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 64px; }
+.btn-primary {
+  font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 4px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: var(--white); padding: 15px 36px; text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  transition: all .2s; box-shadow: 0 6px 32px rgba(255,64,96,0.35);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(255,64,96,0.45); }
+.btn-ghost {
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+  color: var(--sub); border: 1px solid var(--border); padding: 14px 28px;
+  text-decoration: none; transition: all .2s;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+
+/* PORTAL PREVIEW STRIP */
+.portal-strip {
+  display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.portal-strip::-webkit-scrollbar { display: none; }
+.portal-chip {
+  flex-shrink: 0; height: 72px; width: 130px;
+  border: 1px solid var(--border); position: relative; overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%);
+  cursor: pointer; transition: border-color .2s; text-decoration: none; display: block;
+}
+.portal-chip:hover { border-color: var(--accent); }
+.portal-chip-bg { position: absolute; inset: 0; }
+.portal-chip-name {
+  position: absolute; bottom: 8px; left: 10px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 3px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+}
+.portal-chip-series {
+  position: absolute; top: 8px; right: 8px;
+  font-family: 'Share Tech Mono', monospace; font-size: 7px; letter-spacing: 2px;
+  color: rgba(255,255,255,0.45);
+}
+
+/* TICKER */
+.ticker-wrap {
+  background: var(--accent); overflow: hidden; padding: 9px 0;
+  border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.ticker-track {
+  display: flex; animation: tick 28s linear infinite; width: max-content;
+}
+.ticker-item {
+  font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 4px;
+  color: rgba(255,255,255,0.9); padding: 0 36px; white-space: nowrap;
+}
+.ticker-sep { color: rgba(255,255,255,0.3); }
+@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* SECTIONS */
+section { padding: 96px 0; position: relative; z-index: 5; }
+.section-eyebrow {
+  font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 5px;
+  color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+}
+.section-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+.section-heading {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 6vw, 60px);
+  letter-spacing: 2px; line-height: .9; text-transform: uppercase; margin-bottom: 14px;
+}
+.section-heading span {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.section-sub { font-size: 15px; color: var(--sub); line-height: 1.8; max-width: 520px; margin-bottom: 52px; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* HOW IT WORKS */
+.how-section { background: linear-gradient(180deg, var(--bg), var(--card), var(--bg)); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.steps { display: flex; flex-direction: column; max-width: 700px; }
+.step {
+  display: flex; gap: 24px; padding: 28px 0;
+  border-bottom: 1px solid var(--border); align-items: flex-start;
+}
+.step:last-child { border-bottom: none; }
+.step:hover .step-num { color: var(--accent); }
+.step-num {
+  font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 2px;
+  color: var(--border); line-height: 1; flex-shrink: 0; width: 60px;
+  transition: color .3s;
+}
+.step-content { flex: 1; padding-top: 6px; }
+.step-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px;
+  text-transform: uppercase; margin-bottom: 7px;
+}
+.step-desc { font-size: 14px; color: var(--sub); line-height: 1.8; }
+.step-desc strong { color: var(--text); font-weight: 500; }
+.step-tag {
+  display: inline-block; margin-top: 10px;
+  font-family: 'Share Tech Mono', monospace; font-size: 8px; letter-spacing: 3px;
+  color: var(--accent); border: 1px solid rgba(255,64,96,0.3); padding: 4px 10px;
+}
+
+/* WHAT YOU GET */
+.what-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2px; background: var(--border); border: 1px solid var(--border);
+}
+.what-card {
+  background: var(--card); padding: 28px; position: relative; overflow: hidden;
+  transition: background .2s;
+}
+.what-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0); transform-origin: left; transition: transform .3s;
+}
+.what-card:hover { background: var(--card2); }
+.what-card:hover::before { transform: scaleX(1); }
+.what-icon { font-size: 22px; margin-bottom: 14px; }
+.what-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.what-desc { font-size: 13px; color: var(--sub); line-height: 1.75; }
+
+/* PORTAL SHOWCASE */
+.portals-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px;
+}
+.portal-card {
+  border: 1px solid var(--border); position: relative; overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  transition: all .3s; text-decoration: none; display: block;
+}
+.portal-card:hover { transform: translateY(-4px); }
+.portal-card-inner {
+  padding: 20px; position: relative; z-index: 2; height: 170px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.portal-card-bg { position: absolute; inset: 0; z-index: 1; }
+.pc-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.pc-series {
+  font-family: 'Share Tech Mono', monospace; font-size: 8px; letter-spacing: 4px; opacity: .7;
+}
+.pc-jp {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 9px; letter-spacing: 2px; opacity: .4;
+}
+.pc-name {
+  font-family: 'Bebas Neue', sans-serif; font-size: 44px; letter-spacing: 3px; line-height: .9;
+}
+.pc-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+.pc-goal {
+  font-family: 'Share Tech Mono', monospace; font-size: 8px; letter-spacing: 3px; opacity: .6;
+}
+.pc-view {
+  font-family: 'Share Tech Mono', monospace; font-size: 8px; letter-spacing: 2px;
+  color: rgba(255,255,255,0.35);
+}
+.portals-note {
+  text-align: center; margin-top: 28px;
+  font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--sub);
+}
+
+/* ECONOMICS */
+.econ-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.econ-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+@media(max-width: 768px) { .econ-grid { grid-template-columns: 1fr; } }
+
+.econ-statement {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px, 5vw, 48px);
+  letter-spacing: 2px; line-height: .95; margin-bottom: 18px;
+}
+.econ-statement em {
+  font-style: normal; display: block;
+  background: linear-gradient(135deg, var(--gold), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.econ-body { font-size: 14px; color: var(--sub); line-height: 1.85; margin-bottom: 20px; }
+.econ-body strong { color: var(--text); font-weight: 500; }
+.econ-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.econ-tag {
+  font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 3px;
+  border: 1px solid var(--border); color: var(--sub); padding: 6px 12px;
+}
+
+.econ-numbers {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border);
+  border: 1px solid var(--border);
+}
+.econ-num {
+  background: var(--bg); padding: 24px 20px;
+}
+.econ-num-val {
+  font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 2px;
+  line-height: 1;
+}
+.econ-num-label {
+  font-family: 'Share Tech Mono', monospace; font-size: 8px; letter-spacing: 3px;
+  color: var(--sub); margin-top: 4px;
+}
+.econ-num-note { font-size: 12px; color: var(--sub); margin-top: 4px; line-height: 1.5; }
+
+/* CTA SECTION */
+.cta-section { text-align: center; padding: 120px 24px; position: relative; overflow: hidden; }
+.cta-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255,64,96,0.1) 0%, transparent 60%);
+}
+.cta-jp {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 10px; letter-spacing: 8px;
+  color: rgba(255,64,96,0.2); margin-bottom: 18px; font-weight: 900;
+}
+.cta-heading {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 9vw, 84px);
+  letter-spacing: 3px; line-height: .9; text-transform: uppercase; margin-bottom: 14px;
+  position: relative; z-index: 2;
+}
+.cta-heading span {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.cta-sub {
+  font-size: 16px; color: var(--sub); max-width: 440px; margin: 0 auto 36px;
+  line-height: 1.8; position: relative; z-index: 2;
+}
+.cta-sub strong { color: var(--text); font-weight: 500; }
+.cta-handle {
+  display: block; margin-top: 20px; position: relative; z-index: 2;
+  font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 4px; color: var(--sub);
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border); padding: 28px 24px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.footer-logo {
+  font-family: 'Share Tech Mono', monospace; font-size: 13px; letter-spacing: 5px; color: var(--accent);
+}
+.footer-sub { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--sub); }
+
+/* RESPONSIVE */
+@media(max-width: 640px) {
+  .step { gap: 16px; }
+  .step-num { font-size: 38px; width: 46px; }
+  .portals-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+<div class="speed-lines"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">@sophxflow</a>
+    <a href="#contact" class="nav-cta">Work With Me</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-line"></div>
+  <div class="hero-jp">制作 · 制作 · 制作 · 制作 · 制作 · 制作</div>
+  <div class="container">
+    <div class="hero-eyebrow">Creator Partnerships · @sophxflow</div>
+    <h1 class="hero-heading">
+      I build the<br>
+      <span class="grad">system behind</span><br>
+      your coaching.
+      <span class="jp-small">あなたのコーチング</span>
+    </h1>
+    <p class="hero-sub">
+      You focus on content and your audience.<br>
+      <strong>I handle everything else.</strong><br>
+      Training. Nutrition. Weekly adaptation. Client management. All of it — delivered through a custom portal built around each client's identity.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Let's Work Together</a>
+      <a href="#portals" class="btn-ghost">See the portals</a>
+    </div>
+
+    <!-- PORTAL CHIPS -->
+    <div class="portal-strip">
+      <a href="https://viltrumite.vercel.app/" target="_blank" class="portal-chip">
+        <div class="portal-chip-bg" style="background:linear-gradient(135deg,#030008,#09001A)"></div>
+        <div class="portal-chip-series">INVINCIBLE</div>
+        <div class="portal-chip-name" style="color:#C0A0FF">COLE</div>
+      </a>
+      <a href="https://marcus-tawny.vercel.app/" target="_blank" class="portal-chip">
+        <div class="portal-chip-bg" style="background:linear-gradient(135deg,#020801,#0A3010)"></div>
+        <div class="portal-chip-series">DBZ</div>
+        <div class="portal-chip-name" style="color:#60FF80">MARCUS</div>
+      </a>
+      <a href="https://jotaro-seven.vercel.app/" target="_blank" class="portal-chip">
+        <div class="portal-chip-bg" style="background:linear-gradient(135deg,#04060E,#0C1228)"></div>
+        <div class="portal-chip-series">JOJO</div>
+        <div class="portal-chip-name" style="color:#E8C840">MARCO</div>
+      </a>
+      <a href="https://yuki-iota-nine.vercel.app/" target="_blank" class="portal-chip">
+        <div class="portal-chip-bg" style="background:linear-gradient(135deg,#F0EDE4,#E8F0E8)"></div>
+        <div class="portal-chip-series" style="color:rgba(60,80,60,0.5)">GHIBLI</div>
+        <div class="portal-chip-name" style="color:#4A6040">YUKI</div>
+      </a>
+      <a href="https://dante-alpha-navy.vercel.app/" target="_blank" class="portal-chip">
+        <div class="portal-chip-bg" style="background:linear-gradient(135deg,#000810,#001828)"></div>
+        <div class="portal-chip-series">CYBERPUNK</div>
+        <div class="portal-chip-name" style="color:#40E0FF">DANTE</div>
+      </a>
+      <a href="https://sakura-ko2m.vercel.app/" target="_blank" class="portal-chip">
+        <div class="portal-chip-bg" style="background:linear-gradient(135deg,#040614,#0A0820)"></div>
+        <div class="portal-chip-series">SAILOR MOON</div>
+        <div class="portal-chip-name" style="color:#FF80C0">SAKURA</div>
+      </a>
+      <a href="https://ren-pearl.vercel.app/" target="_blank" class="portal-chip">
+        <div class="portal-chip-bg" style="background:linear-gradient(135deg,#08090A,#141508)"></div>
+        <div class="portal-chip-series">AOT</div>
+        <div class="portal-chip-name" style="color:#D8D0B8">REN</div>
+      </a>
+      <a href="https://nina-livid.vercel.app/" target="_blank" class="portal-chip">
+        <div class="portal-chip-bg" style="background:linear-gradient(135deg,#040C10,#081820)"></div>
+        <div class="portal-chip-series">DEMON SLAYER</div>
+        <div class="portal-chip-name" style="color:#80C0B0">NINA</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item">CUSTOM PORTAL <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">ZERO FULFILMENT WORK <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">10% RECURRING <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">WEEKLY ADAPTATION <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">BUILT FOR YOUR AUDIENCE <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">制作 <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">CUSTOM PORTAL <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">ZERO FULFILMENT WORK <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">10% RECURRING <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">WEEKLY ADAPTATION <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">BUILT FOR YOUR AUDIENCE <span class="ticker-sep">·</span></div>
+    <div class="ticker-item">制作 <span class="ticker-sep">·</span></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="container">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-heading">Simple on<br><span>your end.</span></h2>
+    <p class="section-sub">You promote it. I build and run everything else. Here is the full picture.</p>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">You promote to your audience</div>
+          <div class="step-desc">You post about the coaching system — portals, results, the aesthetic. <strong>Your audience fills in an intake form.</strong> That is your only deliverable. The content you are already making.</div>
+          <div class="step-tag">YOUR PART · CONTENT ONLY</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">I build every client's portal</div>
+          <div class="step-desc">Every client gets a <strong>fully custom private portal</strong> — training programme, nutrition plan, macros, six personal recipes, and a weekly check-in system. Built around their goals and their aesthetic. No two portals look the same.</div>
+          <div class="step-tag">MY PART · BUILT IN 24H</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">I run the entire system weekly</div>
+          <div class="step-desc">Every week I read every client's check-in and update their programme. <strong>Training load, nutrition, everything adapts</strong> based on how they are actually progressing. You never touch this.</div>
+          <div class="step-tag">MY PART · EVERY WEEK</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title">You earn 10% recurring</div>
+          <div class="step-desc">Every client your audience converts earns you <strong>10% of their subscription every single month</strong> for as long as they stay. Not a one-off referral. Recurring passive income on every client you bring in.</div>
+          <div class="step-tag">YOUR EARNINGS · RECURRING</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">What each client gets</div>
+    <h2 class="section-heading">Everything.<br><span>Built for them.</span></h2>
+    <p class="section-sub">This is what goes into every portal. Nothing generic. Nothing reused. Every single client is built from scratch.</p>
+    <div class="what-grid reveal">
+      <div class="what-card">
+        <div class="what-icon">⚡</div>
+        <div class="what-title">Personalised Training</div>
+        <div class="what-desc">Programme built around their goal, experience, schedule, and equipment. Adapts every week based on their check-in data.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">🎯</div>
+        <div class="what-title">Nutrition Plan</div>
+        <div class="what-desc">Exact calorie and macro targets calculated for their body and goal. Full meal structure and timing. Updated weekly.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">🍳</div>
+        <div class="what-title">Personal Recipes</div>
+        <div class="what-desc">Six recipes built around food they actually told us they eat. Ingredients, method, and full macro breakdown for every one.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">🎨</div>
+        <div class="what-title">Custom Aesthetic</div>
+        <div class="what-desc">The portal is built around their character, their energy, their identity. Every client's portal looks completely different.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">📊</div>
+        <div class="what-title">Weekly Check-in</div>
+        <div class="what-desc">They rate training, nutrition, sleep, and energy every week. I read every submission and update the programme accordingly.</div>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">📱</div>
+        <div class="what-title">Private Portal Link</div>
+        <div class="what-desc">Opens in their phone browser. No app, no download, no account. One private link. Their entire programme lives there.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL SHOWCASE -->
+<section id="portals" style="background:linear-gradient(180deg,var(--bg),var(--card),var(--bg));border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="section-eyebrow">The Portals</div>
+    <h2 class="section-heading">Every one<br><span>completely different.</span></h2>
+    <p class="section-sub">These are real portals built for real clients. Click any one to see it live. Your audience will get something that looks nothing like any of these — because it will be built for them.</p>
+    <div class="portals-grid reveal">
+
+      <a href="https://viltrumite.vercel.app/" target="_blank" class="portal-card" style="border-color:rgba(160,96,255,0.25)">
+        <div class="portal-card-bg" style="background:linear-gradient(135deg,#030008 60%,#090018)"></div>
+        <div class="portal-card-inner">
+          <div class="pc-top">
+            <div class="pc-series" style="color:#A060FF">INVINCIBLE · VILTRUMITE</div>
+            <div class="pc-jp" style="color:rgba(160,96,255,0.4)">無敵</div>
+          </div>
+          <div class="pc-name" style="color:#C0A0FF;text-shadow:0 0 20px rgba(160,96,255,0.4)">COLE</div>
+          <div class="pc-bottom">
+            <div class="pc-goal" style="color:rgba(160,96,255,0.5)">STRENGTH BUILD</div>
+            <div class="pc-view">VIEW →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://marcus-tawny.vercel.app/" target="_blank" class="portal-card" style="border-color:rgba(0,232,64,0.2)">
+        <div class="portal-card-bg" style="background:linear-gradient(135deg,#020801 60%,#061A08)"></div>
+        <div class="portal-card-inner">
+          <div class="pc-top">
+            <div class="pc-series" style="color:#60FF80">DBZ · LEGENDARY</div>
+            <div class="pc-jp" style="color:rgba(0,232,64,0.3)">爆発</div>
+          </div>
+          <div class="pc-name" style="color:#00E840;text-shadow:0 0 20px rgba(0,232,64,0.4)">MARCUS</div>
+          <div class="pc-bottom">
+            <div class="pc-goal" style="color:rgba(0,232,64,0.4)">MUSCLE BUILD</div>
+            <div class="pc-view">VIEW →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://jotaro-seven.vercel.app/" target="_blank" class="portal-card" style="border-color:rgba(200,168,48,0.2)">
+        <div class="portal-card-bg" style="background:linear-gradient(135deg,#04060E 60%,#0C1228)"></div>
+        <div class="portal-card-inner">
+          <div class="pc-top">
+            <div class="pc-series" style="color:#C8A830">JOJO · STAND USER</div>
+            <div class="pc-jp" style="color:rgba(200,168,48,0.3)">★</div>
+          </div>
+          <div class="pc-name" style="color:#E8C840;text-shadow:0 0 15px rgba(200,168,48,0.3)">MARCO</div>
+          <div class="pc-bottom">
+            <div class="pc-goal" style="color:rgba(200,168,48,0.4)">AESTHETIC BUILD</div>
+            <div class="pc-view">VIEW →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://dante-alpha-navy.vercel.app/" target="_blank" class="portal-card" style="border-color:rgba(64,224,255,0.2)">
+        <div class="portal-card-bg" style="background:linear-gradient(135deg,#000810 60%,#001828)"></div>
+        <div class="portal-card-inner">
+          <div class="pc-top">
+            <div class="pc-series" style="color:#40C0E0">CYBERPUNK · GHOST</div>
+            <div class="pc-jp" style="color:rgba(64,224,255,0.3)">電脳</div>
+          </div>
+          <div class="pc-name" style="color:#40E0FF;text-shadow:0 0 15px rgba(64,224,255,0.3)">DANTE</div>
+          <div class="pc-bottom">
+            <div class="pc-goal" style="color:rgba(64,224,255,0.3)">PERFORMANCE</div>
+            <div class="pc-view">VIEW →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://yuki-iota-nine.vercel.app/" target="_blank" class="portal-card" style="border-color:rgba(80,120,70,0.3);box-shadow:0 0 0 1px rgba(80,120,70,0.1)">
+        <div class="portal-card-bg" style="background:linear-gradient(135deg,#F0EDE4 60%,#E8F0E4)"></div>
+        <div class="portal-card-inner">
+          <div class="pc-top">
+            <div class="pc-series" style="color:rgba(60,80,50,0.6)">GHIBLI · FOREST</div>
+            <div class="pc-jp" style="color:rgba(60,80,50,0.3)">自然</div>
+          </div>
+          <div class="pc-name" style="color:#3A5830">YUKI</div>
+          <div class="pc-bottom">
+            <div class="pc-goal" style="color:rgba(60,80,50,0.4)">FAT LOSS</div>
+            <div class="pc-view" style="color:rgba(60,80,50,0.3)">VIEW →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://sakura-ko2m.vercel.app/" target="_blank" class="portal-card" style="border-color:rgba(255,128,192,0.2)">
+        <div class="portal-card-bg" style="background:linear-gradient(135deg,#040614 60%,#0A0820)"></div>
+        <div class="portal-card-inner">
+          <div class="pc-top">
+            <div class="pc-series" style="color:#FF80C0">SAILOR MOON · MAGICAL</div>
+            <div class="pc-jp" style="color:rgba(255,128,192,0.3)">魔法</div>
+          </div>
+          <div class="pc-name" style="color:#FFB0D8;text-shadow:0 0 15px rgba(255,128,192,0.3)">SAKURA</div>
+          <div class="pc-bottom">
+            <div class="pc-goal" style="color:rgba(255,128,192,0.4)">BODY RECOMP</div>
+            <div class="pc-view">VIEW →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://ren-pearl.vercel.app/" target="_blank" class="portal-card" style="border-color:rgba(184,24,32,0.2)">
+        <div class="portal-card-bg" style="background:linear-gradient(135deg,#08090A 60%,#141508)"></div>
+        <div class="portal-card-inner">
+          <div class="pc-top">
+            <div class="pc-series" style="color:#A0B0A8">AOT · WARRIOR</div>
+            <div class="pc-jp" style="color:rgba(160,176,168,0.3)">⬡</div>
+          </div>
+          <div class="pc-name" style="color:#D8D0B8;text-shadow:3px 3px 0 rgba(184,24,32,0.25)">REN</div>
+          <div class="pc-bottom">
+            <div class="pc-goal" style="color:rgba(160,176,168,0.4)">STRENGTH BUILD</div>
+            <div class="pc-view">VIEW →</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://nina-livid.vercel.app/" target="_blank" class="portal-card" style="border-color:rgba(32,160,128,0.2)">
+        <div class="portal-card-bg" style="background:linear-gradient(135deg,#040C10 60%,#081820)"></div>
+        <div class="portal-card-inner">
+          <div class="pc-top">
+            <div class="pc-series" style="color:#60B0A0">DEMON SLAYER · BREATH</div>
+            <div class="pc-jp" style="color:rgba(32,160,128,0.3)">水</div>
+          </div>
+          <div class="pc-name" style="color:#80C0B0;text-shadow:0 0 15px rgba(32,160,128,0.3)">NINA</div>
+          <div class="pc-bottom">
+            <div class="pc-goal" style="color:rgba(32,160,128,0.35)">MUSCLE BUILD</div>
+            <div class="pc-view">VIEW →</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+    <p class="portals-note">CLICK ANY PORTAL TO SEE IT LIVE · EVERY CLIENT GETS SOMETHING NEW</p>
+  </div>
+</section>
+
+<!-- ECONOMICS -->
+<section class="econ-section">
+  <div class="container">
+    <div class="econ-grid">
+      <div class="reveal">
+        <div class="section-eyebrow">The numbers</div>
+        <div class="econ-statement">
+          Zero work.<br>
+          <em>Recurring income.</em>
+        </div>
+        <p class="econ-body">
+          Every client your audience converts earns you <strong>10% of their subscription every month</strong> for as long as they stay. You do not build anything. You do not manage anything. You promote — I deliver.
+          <br><br>
+          The coaching product is priced at a level where even a small engaged audience generates meaningful recurring income. And because every portal is genuinely personal, retention is high.
+        </p>
+        <div class="econ-tags">
+          <div class="econ-tag">NO FULFILMENT</div>
+          <div class="econ-tag">NO CLIENT MANAGEMENT</div>
+          <div class="econ-tag">NO EXTRA WORK</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="econ-numbers">
+          <div class="econ-num">
+            <div class="econ-num-val" style="color:var(--accent)">10%</div>
+            <div class="econ-num-label">COMMISSION RATE</div>
+            <div class="econ-num-note">Recurring every month per client</div>
+          </div>
+          <div class="econ-num">
+            <div class="econ-num-val" style="color:var(--gold)">£0</div>
+            <div class="econ-num-label">YOUR FULFILMENT COST</div>
+            <div class="econ-num-note">I handle everything operational</div>
+          </div>
+          <div class="econ-num">
+            <div class="econ-num-val" style="color:var(--cyan)">24H</div>
+            <div class="econ-num-label">PORTAL DELIVERY</div>
+            <div class="econ-num-note">Every client gets theirs within 24 hours of payment</div>
+          </div>
+          <div class="econ-num">
+            <div class="econ-num-val" style="color:var(--green)">WK1</div>
+            <div class="econ-num-label">FIRST UPDATE</div>
+            <div class="econ-num-note">Programme adapts from the very first check-in</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta-section" id="contact">
+  <div class="cta-glow"></div>
+  <div class="cta-jp">コラボレーション</div>
+  <h2 class="cta-heading">
+    Let's build<br><span>something.</span>
+  </h2>
+  <p class="cta-sub">
+    If your audience is into fitness, self-improvement, or anime culture — <strong>this was built for them.</strong> Send me a DM and I'll show you what a portal built for your specific audience would look like.
+  </p>
+  <a href="https://instagram.com/sophxflow" target="_blank" class="btn-primary">DM Me on Instagram →</a>
+  <span class="cta-handle">@sophxflow</span>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">@sophxflow</div>
+  <div class="footer-sub">Custom coaching systems for creators · Built by Sophia</div>
+</footer>
+
+<script>
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.08 });
+reveals.forEach(r => io.observe(r));
+
+// STAGGERED PORTAL CARDS
+document.querySelectorAll('.portal-card').forEach((card, i) => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(18px)';
+  card.style.transition = `opacity .6s ease ${i * 0.07}s, transform .6s ease ${i * 0.07}s, border-color .3s, transform .3s`;
+});
+const pcObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.portal-card').forEach(card => {
+        card.style.opacity = '1'; card.style.transform = 'none';
+      });
+      pcObs.disconnect();
+    }
+  });
+}, { threshold: 0.05 });
+const pg = document.querySelector('.portals-grid');
+if (pg) pcObs.observe(pg);
+</script>
+
+</body>
+</html>
